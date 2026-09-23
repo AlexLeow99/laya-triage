@@ -81,8 +81,11 @@ Source code, English documentation and light-theme screenshot:
 ## Verify your download
 
 ```
-SHA256  9DC722EE1F54349954242840ABCC45F019614E19DAAAC727C1B2DEF603C1D39B
+SHA256  5A3F27D9E87E62657C3D40B4F510EEE4E347F9467CFEB2AE22D771B7FEED8E48
 ```
+
+The archive is packaged from the tagged tree, so line endings follow
+`.gitattributes`: `*.bat` and `*.ps1` are CRLF, everything else is LF.
 
 Also attached as `SHA256SUMS.txt`. On Windows:
 
