@@ -1,0 +1,207 @@
+{
+  "version": 2,
+  "note": "分类与问题配置。可在网页端「分类管理」和「问题设置」里维护，也可手工编辑本文件。",
+  "categories": [
+    {
+      "key": "refund",
+      "enabled": true,
+      "zh": {
+        "name": "退款/撤销重复扣款",
+        "desc": "退款、或要求撤销重复扣款"
+      },
+      "en": {
+        "name": "Refund",
+        "desc": "a refund or a reversed duplicate charge"
+      },
+      "ms": {
+        "name": "Bayaran balik",
+        "desc": "pemulangan wang atau pembatalan caj berganda"
+      }
+    },
+    {
+      "key": "technical",
+      "enabled": true,
+      "zh": {
+        "name": "故障报修",
+        "desc": "程序错误、服务中断或集成问题"
+      },
+      "en": {
+        "name": "Technical issue",
+        "desc": "a bug, outage or integration problem"
+      },
+      "ms": {
+        "name": "Masalah teknikal",
+        "desc": "pepijat, gangguan perkhidmatan atau masalah integrasi"
+      }
+    },
+    {
+      "key": "billing",
+      "enabled": true,
+      "zh": {
+        "name": "账单咨询",
+        "desc": "账单、套餐或付款方式的咨询"
+      },
+      "en": {
+        "name": "Billing question",
+        "desc": "a question about invoice, plan or payment"
+      },
+      "ms": {
+        "name": "Soalan bil",
+        "desc": "soalan tentang invois, pelan atau kaedah pembayaran"
+      }
+    },
+    {
+      "key": "cancellation",
+      "enabled": true,
+      "zh": {
+        "name": "取消订阅",
+        "desc": "取消或降级订阅"
+      },
+      "en": {
+        "name": "Cancellation",
+        "desc": "wants to cancel or downgrade"
+      },
+      "ms": {
+        "name": "Batal langganan",
+        "desc": "mahu membatalkan atau menurunkan taraf langganan"
+      }
+    },
+    {
+      "key": "complaint",
+      "enabled": true,
+      "zh": {
+        "name": "投诉不满",
+        "desc": "投诉或表达不满"
+      },
+      "en": {
+        "name": "Complaint",
+        "desc": "a complaint or dissatisfaction"
+      },
+      "ms": {
+        "name": "Aduan",
+        "desc": "aduan atau ketidakpuasan hati"
+      }
+    },
+    {
+      "key": "other",
+      "enabled": true,
+      "zh": {
+        "name": "其他",
+        "desc": "以上都不是的其他内容"
+      },
+      "en": {
+        "name": "Other",
+        "desc": "none of the above"
+      },
+      "ms": {
+        "name": "Lain-lain",
+        "desc": "tiada satu pun di atas"
+      }
+    }
+  ],
+  "category_question": {
+    "enabled": true,
+    "name": {
+      "zh": "分类",
+      "en": "Category",
+      "ms": "Kategori"
+    },
+    "instructions": {
+      "zh": "这段内容主要属于哪一类？",
+      "en": "What is this text mainly about?",
+      "ms": "Teks ini terutamanya tentang apa?"
+    },
+    "noul_template": {
+      "zh": "这段内容是否属于「{desc}」？",
+      "en": "Does this text concern {desc}?",
+      "ms": "Adakah teks ini mengenai {desc}?"
+    }
+  },
+  "questions": [
+    {
+      "key": "urgency",
+      "enabled": true,
+      "type": "score",
+      "name": {
+        "zh": "紧急程度",
+        "en": "Urgency",
+        "ms": "Tahap segera"
+      },
+      "instructions": {
+        "zh": "这段内容的紧急程度如何？",
+        "en": "How urgent is this text?",
+        "ms": "Sejauh mana kecemasan teks ini?"
+      },
+      "criteria": [
+        {
+          "zh": "不急，可以放着",
+          "en": "not urgent",
+          "ms": "tidak mendesak"
+        },
+        {
+          "zh": "一般，正常排队处理",
+          "en": "normal queue",
+          "ms": "baris biasa"
+        },
+        {
+          "zh": "较急，需要尽快处理",
+          "en": "fairly urgent, handle soon",
+          "ms": "agak mendesak, urus segera"
+        },
+        {
+          "zh": "非常紧急，有明确截止期限或已阻断业务",
+          "en": "very urgent: a deadline or something already broken",
+          "ms": "sangat mendesak: ada tarikh akhir atau sesuatu sudah rosak"
+        }
+      ]
+    },
+    {
+      "key": "negative",
+      "enabled": true,
+      "type": "noul",
+      "name": {
+        "zh": "负面情绪",
+        "en": "Negative tone",
+        "ms": "Nada negatif"
+      },
+      "instructions": {
+        "zh": "这段内容是否表达了不满或负面情绪？",
+        "en": "Does this text express dissatisfaction or a negative tone?",
+        "ms": "Adakah teks ini menyatakan ketidakpuasan hati atau nada negatif?"
+      },
+      "criteria": []
+    },
+    {
+      "key": "needs_human",
+      "enabled": true,
+      "type": "noul",
+      "name": {
+        "zh": "需人工介入",
+        "en": "Needs a human",
+        "ms": "Perlu manusia"
+      },
+      "instructions": {
+        "zh": "这段内容是否需要人工尽快介入？",
+        "en": "Does this text need a human to step in soon?",
+        "ms": "Perlukah manusia campur tangan segera untuk teks ini?"
+      },
+      "criteria": []
+    },
+    {
+      "key": "harmful",
+      "enabled": true,
+      "type": "noul",
+      "name": {
+        "zh": "有害内容",
+        "en": "Harmful content",
+        "ms": "Kandungan berbahaya"
+      },
+      "instructions": {
+        "zh": "这段内容是否包含威胁、辱骂骚扰或违法信息？",
+        "en": "Does this text contain threats, harassment or illegal content?",
+        "ms": "Adakah teks ini mengandungi ancaman, gangguan atau kandungan haram?"
+      },
+      "criteria": []
+    }
+  ]
+}

@@ -1,0 +1,336 @@
+/* ============================================================
+   主题：深色 / 浅色
+   默认跟随系统 —— 由 <head> 里的小脚本把解析结果写成 data-theme 属性，
+   所以 CSS 只需要管两种确定的配色，不用把浅色重复写两遍。
+   半透明底色统一用 color-mix() 从主色推导，换主题时自动跟着变。
+   ============================================================ */
+:root, :root[data-theme="dark"]{
+  --bg:#0f1115; --card:#181b22; --card2:#1f232c; --line:#2a2f3a;
+  --sunken:#1b1f27; --sunken2:#161a21; --sunken-line:#3a4152;
+  --fg:#e8eaed; --dim:#9aa3b2; --dim2:#6b7482; --foot:var(--foot);
+  --green:#3ecf8e; --amber:#f5b942; --red:#f2635f; --blue:#5b9dff;
+  --on-accent:#07142b;
+  --warn-fg:var(--warn-fg); --warn-fg-strong:var(--warn-fg-strong); --note-fg:var(--note-fg); --danger-fg:var(--danger-fg);
+  --soft:rgba(255,255,255,.014);
+  --shadow:0 6px 18px rgba(0,0,0,.45);
+  --shadow-lg:0 6px 20px rgba(0,0,0,.5);
+  --radius:12px;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f4f6f8; --card:#ffffff; --card2:#f0f2f5; --line:#d9dee5;
+  --sunken:#eef1f5; --sunken2:#e8ecf1; --sunken-line:#c8d0da;
+  --fg:#1a1f26; --dim:#57616e; --dim2:#7d8794; --foot:#98a1ad;
+  --green:#0f9d63; --amber:#a9750f; --red:#c23a34; --blue:#2563eb;
+  --on-accent:#ffffff;
+  --warn-fg:#7a5c14; --warn-fg-strong:#5d4508; --note-fg:#6f5510; --danger-fg:#9a2f2a;
+  --soft:rgba(0,0,0,.022);
+  --shadow:0 4px 14px rgba(20,30,50,.10);
+  --shadow-lg:0 6px 18px rgba(20,30,50,.14);
+  --radius:12px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:15px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+  padding:28px 20px 60px;
+}
+.wrap{max-width:900px;margin:0 auto}
+.hidden{display:none}
+
+/* ---------- header ---------- */
+header{margin-bottom:18px}
+.headrow{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+h1{font-size:22px;margin:0 0 6px;letter-spacing:.3px}
+.sub{color:var(--dim);font-size:13.5px}
+.sub2{color:var(--dim2);font-size:12.5px;margin-top:2px}
+.headpick{margin-left:auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.pick{display:flex;align-items:center;gap:8px}
+.pick label{color:var(--dim);font-size:13px;white-space:nowrap}
+select{
+  background:var(--card2);color:var(--fg);border:1px solid var(--line);
+  border-radius:8px;padding:7px 10px;font:inherit;font-size:13.5px;
+}
+select:focus{outline:none;border-color:var(--blue)}
+
+/* ---------- cards ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.banner{border-color:color-mix(in srgb, var(--amber) 34%, var(--line));background:color-mix(in srgb, var(--amber) 8%, transparent)}
+.banner .t{color:var(--amber);font-weight:600;margin-bottom:8px;font-size:15px}
+.banner .b{color:var(--warn-fg);font-size:13.5px;line-height:1.75}
+.banner b{color:var(--warn-fg-strong)}
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tab{
+  background:transparent;border:1px solid var(--line);color:var(--dim);
+  padding:9px 18px;border-radius:9px;font:inherit;font-size:14px;cursor:pointer;
+}
+.tab:hover{color:var(--fg)}
+.tab.on{background:var(--card);color:var(--fg);border-color:var(--blue)}
+
+/* ---------- input ---------- */
+textarea{
+  width:100%;min-height:128px;resize:vertical;background:var(--card2);color:var(--fg);
+  border:1px solid var(--line);border-radius:10px;padding:13px 14px;font:inherit;line-height:1.6;
+}
+textarea:focus{outline:none;border-color:var(--blue)}
+.row{display:flex;align-items:center;gap:10px;margin-top:13px;flex-wrap:wrap}
+button{
+  background:var(--blue);color:var(--on-accent);border:0;border-radius:9px;padding:10px 22px;
+  font:inherit;font-weight:600;cursor:pointer;
+}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.ghost{
+  background:transparent;color:var(--dim);border:1px solid var(--line);
+  padding:7px 13px;font-weight:400;font-size:13px;
+}
+button.ghost:hover{color:var(--fg);border-color:var(--dim2)}
+.hint{color:var(--dim2);font-size:12.5px;margin-left:auto}
+.status{display:flex;align-items:center;gap:8px;color:var(--dim);font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--dim2);flex:0 0 auto}
+.dot.ok{background:var(--green)} .dot.load{background:var(--amber);animation:p 1s infinite}
+.dot.err{background:var(--red)}
+@keyframes p{50%{opacity:.25}}
+
+/* ---------- verdict ---------- */
+.vrow{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.vcat{font-size:26px;font-weight:700;letter-spacing:.5px}
+.vsub{color:var(--dim);font-size:13px;margin-top:5px}
+.badge{
+  display:inline-block;padding:5px 12px;border-radius:20px;font-size:12.5px;font-weight:600;
+  border:1px solid transparent;white-space:nowrap;margin-left:auto;
+}
+.t-agree{background:color-mix(in srgb, var(--green) 14%, transparent);color:var(--green);border-color:color-mix(in srgb, var(--green) 34%, transparent)}
+.t-disagree{background:color-mix(in srgb, var(--red) 15%, transparent);color:var(--red);border-color:color-mix(in srgb, var(--red) 38%, transparent)}
+.t-other{background:color-mix(in srgb, var(--blue) 14%, transparent);color:var(--blue);border-color:color-mix(in srgb, var(--blue) 34%, transparent)}
+
+/* ---------- bars ---------- */
+.barlist{margin-top:4px}
+.bar{display:grid;grid-template-columns:130px 1fr 58px;gap:11px;align-items:center;margin-bottom:9px}
+.bname{font-size:13.5px;color:var(--dim);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.track{height:9px;background:var(--card2);border-radius:5px;overflow:hidden}
+.fill{height:100%;border-radius:5px;background:var(--blue);transition:width .35s}
+.bval{font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums}
+.bar.top .bname{color:var(--fg);font-weight:600}
+.bar.top .fill{background:var(--green)}
+
+/* ---------- misc ---------- */
+h3{font-size:13px;color:var(--dim);margin:0 0 12px;font-weight:600;letter-spacing:.4px;text-transform:uppercase}
+.aux{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px}
+.aux .item{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:11px 13px}
+.aux .k{font-size:12.5px;color:var(--dim);margin-bottom:4px}
+.aux .v{font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+.meta{color:var(--dim2);font-size:12.5px;margin-top:12px;line-height:1.7}
+.meta code{font-size:12.5px}
+.note{
+  border-left:3px solid var(--amber);background:color-mix(in srgb, var(--amber) 8%, transparent);
+  padding:11px 14px;border-radius:0 8px 8px 0;font-size:13.5px;color:var(--note-fg);margin-top:14px;
+}
+.note.red{border-left-color:var(--red);background:color-mix(in srgb, var(--red) 8%, transparent);color:var(--danger-fg)}
+.okline{color:var(--green);font-size:13.5px;font-weight:600;margin-top:10px}
+.errline{color:var(--red);font-size:13.5px;font-weight:600;margin-top:10px}
+.errsub{color:var(--danger-fg);font-size:13px;margin-top:5px}
+.warnsub{color:var(--note-fg);font-size:13px;margin-top:5px}
+.err{color:var(--red);font-size:14px}
+code{background:var(--card2);padding:2px 6px;border-radius:5px;font-size:12.5px;color:var(--dim)}
+details{margin-top:4px}
+summary{cursor:pointer;color:var(--dim);font-size:13px;user-select:none}
+summary:hover{color:var(--fg)}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--dim);font-weight:600}
+td.num{text-align:right;font-variant-numeric:tabular-nums;color:var(--dim)}
+
+/* ---------- category manager ---------- */
+.langrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;
+  padding-bottom:12px;border-bottom:1px solid var(--line)}
+.langlbl{color:var(--dim);font-size:13px}
+.langhint{color:var(--dim2);font-size:12.5px;margin-left:auto}
+.lbtn{
+  background:transparent;border:1px solid var(--line);color:var(--dim);
+  padding:5px 13px;border-radius:7px;font:inherit;font-size:13px;font-weight:400;cursor:pointer;
+}
+.lbtn:hover{color:var(--fg)}
+.lbtn.on{background:var(--card2);color:var(--fg);border-color:var(--blue)}
+.catcard{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:13px;margin-bottom:11px}
+.cathead{display:flex;align-items:center;gap:12px;margin-bottom:9px;flex-wrap:wrap}
+.chk{display:flex;align-items:center;gap:6px;color:var(--dim);font-size:13px;white-space:nowrap;cursor:pointer}
+.chk input{accent-color:var(--blue);cursor:pointer}
+.kin{
+  background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:7px;
+  padding:6px 10px;font:13.5px/1.4 ui-monospace,Consolas,monospace;width:200px;
+}
+.nin,.din{
+  width:100%;background:var(--card);color:var(--fg);border:1px solid var(--line);
+  border-radius:7px;padding:8px 11px;font:inherit;font-size:13.5px;margin-bottom:8px;
+}
+.nin:focus,.din:focus,.kin:focus{outline:none;border-color:var(--blue)}
+.din{resize:vertical;line-height:1.55}
+.din:last-child{margin-bottom:0}
+button.del{
+  background:transparent;color:var(--red);border:1px solid color-mix(in srgb, var(--red) 38%, transparent);
+  padding:5px 12px;border-radius:7px;font:inherit;font-size:12.5px;font-weight:400;margin-left:auto;cursor:pointer;
+}
+button.del:hover{background:color-mix(in srgb, var(--red) 12%, transparent)}
+
+/* 锁定分类（other）：不能删、不能停用、标识不能改 */
+.catcard.locked{border-color:var(--sunken-line);background:var(--sunken)}
+.catcard.locked .kin{
+  color:var(--dim);background:var(--sunken2);border-style:dashed;cursor:not-allowed;
+}
+.catcard.locked .chk{color:var(--dim2);cursor:not-allowed}
+.catcard.locked .chk input{cursor:not-allowed}
+.lockbadge{
+  margin-left:auto;display:inline-flex;align-items:center;gap:5px;
+  padding:5px 12px;border-radius:7px;font-size:12.5px;font-weight:600;
+  color:var(--amber);background:color-mix(in srgb, var(--amber) 11%, transparent);border:1px solid color-mix(in srgb, var(--amber) 32%, transparent);
+  white-space:nowrap;cursor:default;
+}
+.lockhint{color:var(--dim2);font-size:12.5px;line-height:1.6;margin-top:2px}
+
+/* ---------- 常驻操作条（吸顶）----------
+   长表单最烦的是改完底下还要滚回顶上点保存。position: sticky 让换语言、
+   保存、预览始终在视野里。必须给实底色 + z-index，否则滚动时会被下面的
+   卡片内容透出来。 */
+.stickybar{
+  position:sticky; top:0; z-index:20;
+  background:var(--bg);
+  border:1px solid var(--line); border-radius:var(--radius);
+  padding:10px 12px; margin-bottom:12px;
+  box-shadow:var(--shadow);
+  display:flex; flex-direction:column; gap:8px;
+}
+.sbrow{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.sbrow.sb-more{border-top:1px solid var(--line);padding-top:8px}
+.sb-tabs{display:flex;gap:5px}
+.sb-count{color:var(--dim2);font-size:12.5px}
+.sb-dirty{
+  margin-left:auto;color:var(--amber);font-size:12.5px;font-weight:600;
+  padding:4px 10px;border-radius:20px;border:1px solid transparent;
+}
+.sb-dirty.on{background:color-mix(in srgb, var(--amber) 13%, transparent);border-color:color-mix(in srgb, var(--amber) 38%, transparent)}
+.sb-sep{width:1px;height:18px;background:var(--line);margin:0 3px}
+/* 吸顶条里按钮紧凑一点 */
+.stickybar button{padding:7px 15px;font-size:13px}
+.stickybar button.ghost{padding:6px 12px}
+.stickybar .lbtn{padding:5px 11px;font-size:12.5px}
+
+/* ---------- 问题设置 ---------- */
+.qcard{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
+.qcard.locked{border-color:var(--sunken-line);background:var(--sunken)}
+.qhead{display:flex;align-items:center;gap:10px;margin-bottom:11px;flex-wrap:wrap}
+.qcard.locked .kin{color:var(--dim);background:var(--sunken2);border-style:dashed;cursor:not-allowed}
+.typebadge{
+  padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600;
+  color:var(--blue);background:color-mix(in srgb, var(--blue) 13%, transparent);border:1px solid color-mix(in srgb, var(--blue) 32%, transparent);
+  white-space:nowrap;font-family:ui-monospace,Consolas,monospace;
+}
+select.qtype{
+  background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:7px;
+  padding:6px 9px;font:13px/1.4 ui-monospace,Consolas,monospace;
+}
+select.qtype:focus{outline:none;border-color:var(--blue)}
+.qfield{display:block;margin-bottom:9px}
+.qfield > span{display:block;color:var(--dim);font-size:12.5px;margin-bottom:4px}
+.qfield .nin,.qfield .din{margin-bottom:0}
+.qhint{color:var(--dim2);font-size:12.5px;line-height:1.6;margin:6px 0 0}
+.qhint.warn{
+  color:var(--note-fg);background:color-mix(in srgb, var(--amber) 8%, transparent);border-left:3px solid var(--amber);
+  border-radius:0 7px 7px 0;padding:9px 12px;margin:8px 0 0;
+}
+.qcrit{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.critrow{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+/* 选项标识输入框：选项行和 score 档位行共用。
+   注意必须写成独立的 .okin 规则——之前只在 .critrow 下定义，
+   结果统一后的选项行（父元素是 .cathead，没有 .critrow）拿不到任何样式。 */
+.okin{
+  background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:7px;
+  padding:7px 9px;font:13px/1.4 ui-monospace,Consolas,monospace;
+  width:150px;flex:0 0 auto;min-width:0;
+}
+.okin::placeholder{color:var(--dim2)}
+.okin:focus{outline:none;border-color:var(--blue)}
+/* score 档位行里窄一点（那里没有字母标号，横向更挤） */
+.critrow .okin{width:118px;padding:7px 9px;font-size:12.5px}
+.critrow .nin{margin-bottom:0;flex:1 1 auto}
+.lvlno{
+  color:var(--dim2);font:12px/1 ui-monospace,Consolas,monospace;width:18px;
+  flex:0 0 auto;text-align:center;
+}
+button.mini{
+  background:transparent;color:var(--dim);border:1px solid var(--line);
+  padding:5px 10px;border-radius:6px;font:12.5px/1 inherit;font-weight:400;
+  flex:0 0 auto;cursor:pointer;margin:0;
+}
+button.mini:hover{color:var(--red);border-color:color-mix(in srgb, var(--red) 44%, transparent)}
+button.ghost.mini{margin-top:2px}
+
+/* 结果卡片里附加问题的档位/选项标签 */
+.unit{font-size:12.5px;color:var(--dim2)}
+.choiceval{font-size:15px}
+.lvls{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.lvl{
+  font-size:11.5px;color:var(--dim2);background:var(--card);border:1px solid var(--line);
+  border-radius:20px;padding:2px 8px;line-height:1.5;
+}
+.lvl.on{color:var(--on-accent);background:var(--green);border-color:var(--green);font-weight:600}
+
+/* 提问预览 */
+.previewhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.previewhead .mini{margin-left:auto}
+.typehelps{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.typehelp{display:flex;align-items:baseline;gap:9px;font-size:13px;color:var(--warn-fg);line-height:1.65}
+.typehelp .typebadge{flex:0 0 auto}
+.previewhead + div{margin-bottom:2px}
+
+/* ---------- Choices（分类问题的选项，= 分类）---------- */
+.choices{
+  margin-top:14px;padding:13px;border:1px solid var(--line);border-radius:10px;
+  background:var(--soft);
+}
+.choiceshead{display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap}
+.choicestitle{
+  font-size:12.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--dim);
+}
+.choicecount{
+  margin-left:auto;font:12px/1 ui-monospace,Consolas,monospace;color:var(--dim2);
+  background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 11px;white-space:nowrap;
+}
+.choicecount.over{color:var(--amber);border-color:color-mix(in srgb, var(--amber) 44%, transparent);background:color-mix(in srgb, var(--amber) 9%, transparent)}
+.ltr{
+  flex:0 0 auto;width:22px;height:22px;border-radius:6px;display:inline-flex;
+  align-items:center;justify-content:center;
+  font:12px/1 ui-monospace,Consolas,monospace;font-weight:700;
+  color:var(--on-accent);background:var(--green);
+}
+.ltr.off{color:var(--dim2);background:var(--card);border:1px solid var(--line)}
+.qno{
+  flex:0 0 auto;font:12px/1 ui-monospace,Consolas,monospace;font-weight:700;
+  color:var(--dim2);letter-spacing:.5px;padding:4px 0;
+}
+
+/* ---------- footer ---------- */
+/* ---------- 回到最上面 ---------- */
+.totop{
+  position:fixed; right:22px; bottom:22px; z-index:40;
+  width:46px; height:46px; padding:0; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--card); color:var(--fg);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-lg);
+  cursor:pointer;
+  opacity:0; visibility:hidden; transform:translateY(8px);
+  transition:opacity .18s, transform .18s, visibility .18s, border-color .18s;
+}
+.totop.on{opacity:1; visibility:visible; transform:translateY(0)}
+.totop:hover{border-color:var(--blue); color:var(--blue)}
+.totop:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.totop-arrow{font-size:19px; line-height:1; font-weight:600}
+@media (prefers-reduced-motion:reduce){
+  .totop{transition:none}
+}
+
+footer{color:var(--dim2);font-size:12.5px;text-align:center;margin-top:26px;line-height:1.8}
+footer .dim{color:var(--foot)}

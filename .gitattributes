@@ -1,0 +1,29 @@
+# 换行符必须按文件类型固定，不能交给各人的 core.autocrlf 决定。
+#
+# 最要命的一条：start.sh 如果被存成 CRLF，在 Linux / macOS 上会直接
+# 报 "bad interpreter: /bin/bash^M" 而跑不起来。.bat 反过来必须 CRLF。
+
+* text=auto eol=lf
+
+# Windows 批处理与 PowerShell 脚本
+*.bat  text eol=crlf
+*.ps1  text eol=crlf
+*.cmd  text eol=crlf
+
+# Unix shell 脚本
+*.sh   text eol=lf
+
+# 配置文件用 LF 就好
+*.json text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+
+# 二进制：不要动
+*.png  binary
+*.jpg  binary
+*.xlsx binary
+*.ico  binary
+
+# Git 自己认得这些
+*.gitattributes text
+*.gitignore    text

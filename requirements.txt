@@ -1,0 +1,31 @@
+# Laya 内容分诊台 —— Python 依赖
+#
+# 说明：一般不需要手动装。双击 install.bat 会自动完成全部安装。
+# 本文件是给想手动安装、或在 Linux / macOS 上部署的人参考的。
+#
+# 手动安装步骤：
+#   1. 先建虚拟环境
+#        python -m venv .venv
+#   2. 装 PyTorch —— 必须单独装，因为要按显卡选不同的源：
+#        有 NVIDIA 显卡： pip install torch --index-url https://download.pytorch.org/whl/cu126
+#        只有 CPU：       pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   3. 再装本文件的其余依赖
+#        pip install -r requirements.txt
+
+laya[serve]==0.3.7
+requests==2.34.2
+openpyxl==3.1.5        # 用于 .xlsx 导入导出（可选，缺了只是 Excel 功能不可用）
+
+# 以下由上面的包自动带上，这里显式写出是为了版本可复现：
+transformers==5.17.0
+huggingface_hub==1.32.0
+tokenizers==0.23.2
+safetensors==0.8.0
+numpy==2.5.3
+fastapi==0.141.1
+uvicorn==0.53.0
+starlette==1.7.0
+pydantic==2.13.5
+
+# PyTorch 不在这里固定版本，原因见上面第 2 步：
+#   实测可用版本为 torch 2.14.0（cu130 / cu126 / cpu 三种轮子均已验证存在）

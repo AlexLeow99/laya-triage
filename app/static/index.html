@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laya Triage</title>
+<link rel="stylesheet" href="/static/style.css">
+<script>
+  // 必须在首次绘制之前把主题定下来，否则会先闪一下默认色再切过去。
+  // 所以这段放在 <head> 里，用内联脚本而不是等 app.js。
+  (function () {
+    var mode = 'system';
+    try { mode = localStorage.getItem('laya.theme') || 'system'; } catch (e) { }
+    var dark = mode === 'dark' || (mode === 'system' && window.matchMedia
+      && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  })();
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="headrow">
+      <div>
+        <h1 id="h-title">内容分诊台</h1>
+        <div class="sub" id="h-sub"></div>
+        <div class="sub sub2" id="h-sub2"></div>
+      </div>
+      <div class="headpick">
+        <div class="pick">
+          <label id="lbl-lang" for="uiLang"></label>
+          <select id="uiLang">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ms">Bahasa Melayu</option>
+          </select>
+        </div>
+        <div class="pick">
+          <label id="lbl-theme" for="uiTheme"></label>
+          <select id="uiTheme">
+            <option value="system"></option>
+            <option value="light"></option>
+            <option value="dark"></option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="card banner">
+    <div class="t" id="banner-title"></div>
+    <div class="b" id="banner-body"></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" data-tab="analyze" id="tab-analyze"></button>
+    <button class="tab" data-tab="questions" id="tab-questions"></button>
+  </div>
+
+  <!-- ============================= 分析 ============================= -->
+  <section id="pane-analyze">
+    <div class="card">
+      <textarea id="text"></textarea>
+      <div class="row">
+        <button id="go"></button>
+        <button class="ghost" data-demo="zh"></button>
+        <button class="ghost" data-demo="en"></button>
+        <button class="ghost" data-demo="ms"></button>
+        <span class="hint" id="hint-ctrl"></span>
+        <span class="status"><span class="dot" id="dot"></span><span id="st"></span></span>
+      </div>
+    </div>
+    <div id="out"></div>
+  </section>
+
+  <!-- ======================= 问题与选项（含分类）======================= -->
+  <section id="pane-questions" class="hidden">
+
+    <!-- 常驻操作条：滚动时吸顶，换语言和保存不用再滚回顶部 -->
+    <div class="stickybar" id="q-sticky">
+      <div class="sbrow">
+        <div class="sb-tabs" id="q-langtabs"></div>
+        <span class="sb-count" id="q-count"></span>
+        <span class="sb-dirty" id="q-dirty"></span>
+        <button id="q-save"></button>
+        <button class="ghost" id="q-discard"></button>
+      </div>
+      <div class="sbrow sb-more">
+        <button class="ghost" id="q-add"></button>
+        <button class="ghost" id="q-preview"></button>
+        <span class="sb-sep"></span>
+        <button class="ghost" id="q-import"></button>
+        <button class="ghost" id="q-export-xlsx"></button>
+        <button class="ghost" id="q-export-csv"></button>
+        <button class="ghost" id="q-export"></button>
+        <input type="file" id="file-csv" accept=".xlsx,.xlsm,.csv,.tsv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="hidden">
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 id="q-title"></h3>
+      <div class="meta" id="q-intro" style="margin-bottom:14px"></div>
+      <div id="q-status"></div>
+      <div id="q-msg"></div>
+      <div id="q-preview-box" class="hidden"></div>
+      <div id="q-list"></div>
+      <div class="note" id="q-note-wording"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div id="foot-local"></div>
+    <div id="foot-disc" class="dim"></div>
+  </footer>
+</div>
+
+<!-- 回到最上面：右下角悬浮，滚下去才出现 -->
+<button id="to-top" class="totop" title="">
+  <span class="totop-arrow">↑</span>
+</button>
+
+<script src="/static/i18n.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

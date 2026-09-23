@@ -1,0 +1,7 @@
+﻿启用,标识,中文名称,中文描述,英文名称,英文描述
+1,logistics,物流查询,物流进度、发货状态或快递问题,Logistics,"shipping status, delivery or tracking"
+1,return,退换货,退货、换货、商品损坏或漏发,Return,"a return, an exchange, a damaged or missing item"
+1,product,商品咨询,商品规格、材质、库存或使用方法,Product,"product specs, materials, stock or how to use it"
+1,promotion,价格优惠,优惠券、活动规则或议价,Promotion,"coupons, campaign rules or price negotiation"
+1,invoice,发票问题,开发票、发票抬头或发票信息有误,Invoice,"an invoice request or a wrong invoice detail"
+1,other,其他,以上都不是的其他内容,Other,"none of the above"

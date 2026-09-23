@@ -1,0 +1,6 @@
+﻿启用,标识,中文名称,中文描述,英文名称,英文描述
+1,resume_screen,简历初筛,候选人简历的初步筛选,Resume screening,"screening a candidate resume"
+1,interview_schedule,面试安排,面试时间、面试官或场地安排,Interview scheduling,"interview time, interviewer or venue"
+1,offer_negotiation,Offer 沟通,薪资、职级或入职时间的沟通,Offer negotiation,"salary, level or start date discussion"
+1,onboarding,入职办理,入职材料、账号开通或工位安排,Onboarding,"onboarding paperwork, accounts or desk setup"
+1,other,其他,以上都不是的其他内容,Other,"none of the above"
